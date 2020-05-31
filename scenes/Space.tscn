@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scripts/Space.gd" type="Script" id=2]
+
+[node name="Space" type="Node2D"]
+script = ExtResource( 2 )
+
+[node name="Player" parent="." instance=ExtResource( 1 )]
+position = Vector2( 311.746, 189.424 )
+
+[node name="Timer" type="Timer" parent="."]
+autostart = true
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
