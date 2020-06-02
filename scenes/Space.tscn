@@ -20,13 +20,17 @@ b = Vector2( 1280, 720 )
 [node name="Space" type="Node2D"]
 script = ExtResource( 2 )
 
-[node name="Player" parent="." instance=ExtResource( 1 )]
-position = Vector2( 311.746, 189.424 )
+[node name="Player" parent="." groups=[
+"Player",
+] instance=ExtResource( 1 )]
+position = Vector2( 639.102, 351.432 )
 
 [node name="Timer" type="Timer" parent="."]
 autostart = true
 
 [node name="Boundaries" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 7
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Boundaries"]
 shape = SubResource( 1 )
@@ -39,4 +43,26 @@ shape = SubResource( 3 )
 
 [node name="CollisionShape2D4" type="CollisionShape2D" parent="Boundaries"]
 shape = SubResource( 4 )
+
+[node name="Stars" type="CPUParticles2D" parent="."]
+position = Vector2( 640, 360 )
+z_index = -1
+amount = 100
+lifetime = 4.0
+preprocess = 1.0
+speed_scale = 0.2
+randomness = 1.0
+lifetime_randomness = 1.0
+fixed_fps = 30
+emission_shape = 2
+emission_rect_extents = Vector2( 640, 360 )
+spread = 180.0
+gravity = Vector2( 0, 0 )
+initial_velocity = 50.0
+initial_velocity_random = 1.0
+scale_amount = 2.0
+color = Color( 0.968627, 0.917647, 0.505882, 1 )
+hue_variation = 1.0
+hue_variation_random = 1.0
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
+[connection signal="body_entered" from="Boundaries" to="." method="_on_Boundaries_body_entered"]

@@ -16,7 +16,7 @@ func _process(_delta):
 	elif speed < 0:
 		speed += 50
 
-func thrust():
-	print(get_position() - get_global_mouse_position())
-	speed = 500
-	
+func push(power:int):
+	print_debug(get_position() - get_global_mouse_position())
+	speed = power
+

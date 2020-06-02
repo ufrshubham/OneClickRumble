@@ -10,5 +10,9 @@ func _process(delta):
 	move_and_collide(velocity * delta)
 
 func _on_Area2D_body_entered(body):
-	if body.name == 'Player':
-		print('Failed!!!')
+	if body.is_in_group('Player'):
+		print_debug('Player taking damage')
+	elif body.is_in_group("Projectiles"):
+		body.queue_free()
+		queue_free()
+		
