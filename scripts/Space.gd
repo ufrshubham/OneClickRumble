@@ -11,9 +11,12 @@ func _ready():
 func _input(event):
 	if event.is_action_pressed("Fire"):
 		var missile = _generate_missile()
-		add_child(missile)
-		
+		add_child(missile)		
 		get_node("Player").push(500)
+
+func _process(_delta):
+	if GlobalData.player_lives <= 0:
+		print('Player is dead')
 
 func _generate_missile():
 	var new_missile = missile.instance()
@@ -27,11 +30,17 @@ func _on_Timer_timeout():
 	
 func _generate_enemy_at_random_location():
 	var new_enemy = emeny.instance()
+	var position = Vector2.ZERO
+	position.x = randi() % int(window_dim.x)
+	position.y = randi() % int(window_dim.y)
 	
-	var x = randi() % int(window_dim.x)
-	var y = randi() % int(window_dim.y)
+	# Makes sure that enemy does not spawn too close to player.
+	while position.distance_to(get_node("Player").get_position()) < 80:
+		position.x = randi() % int(window_dim.x)
+		position.y = randi() % int(window_dim.y)
+		
 	var rot = randi() % 360
-	new_enemy.set_position(Vector2(x, y))
+	new_enemy.set_position(position)
 	new_enemy.set_rotation(deg2rad(rot))
 	
 	# This is needed to detect enemies going out of boundaries
@@ -40,11 +49,8 @@ func _generate_enemy_at_random_location():
 
 func _on_Boundaries_body_entered(body):
 	if body.is_in_group("Enemies"):
-		print_debug('Deleting enemy')
 		body.queue_free()
 	elif body.is_in_group("Projectiles"):
-		print_debug('Deleting missile')
 		body.queue_free()
 	elif body.is_in_group("Player"):
 		body.push(-800)
-		print_debug('Player bounce')

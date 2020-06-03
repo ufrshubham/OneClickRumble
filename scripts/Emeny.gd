@@ -11,8 +11,17 @@ func _process(delta):
 
 func _on_Area2D_body_entered(body):
 	if body.is_in_group('Player'):
-		print_debug('Player taking damage')
+		_handle_player_collision(body)
 	elif body.is_in_group("Projectiles"):
-		body.queue_free()
-		queue_free()
-		
+		_handle_projectile_collision(body)
+
+func _handle_player_collision(player):
+	GlobalData.player_lives_delete_list.append(GlobalData.player_lives)
+	GlobalData.player_lives -= 1
+	player.push(-800)
+	queue_free()
+
+func _handle_projectile_collision(projectile):
+	GlobalData.player_score += 1
+	projectile.queue_free()
+	queue_free()	
