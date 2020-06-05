@@ -1,15 +1,22 @@
 extends "res://scripts/Emeny.gd"
 
-var missile = preload("res://scenes/Missile.tscn")
+var missile = preload("res://scenes/EnemyMissile.tscn")
 
 func _ready():
 	level = 2
-	velocity = Vector2(150, 0)
+	velocity = Vector2(80, 0)
 	velocity = velocity.rotated(get_rotation())
 
 func _custom_process():
-	var my_dir = velocity.normalized()
-	var player_dir = my_dir.direction_to(GlobalData.player_pos)
+	pass
 
-	if my_dir.dot(player_dir) < 0.1:
-		print("A sees P!")
+func _on_Scanner_body_entered(body):
+	if body.is_in_group("Player"):
+		_fire()
+
+func _fire():
+	var new_missile = missile.instance()
+	new_missile.transform = Transform2D(get_global_rotation(), get_position())
+	new_missile.velocity = Vector2(800, 0)
+	new_missile.add_to_group("Projectiles")
+	get_tree().get_current_scene().add_child(new_missile)

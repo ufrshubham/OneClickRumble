@@ -1,13 +1,18 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://assets/EnemyRed.png" type="Texture" id=1]
 [ext_resource path="res://scripts/EnemyLevel2.gd" type="Script" id=2]
+[ext_resource path="res://assets/Scanner.png" type="Texture" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 15.4621, 13.9772 )
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 24.5996, 21.5665 )
+
+[sub_resource type="SegmentShape2D" id=3]
+a = Vector2( -1.16022, -1.12595 )
+b = Vector2( 497.595, -1.03174 )
 
 [node name="EnemyLevel2" type="KinematicBody2D"]
 collision_layer = 4
@@ -29,4 +34,17 @@ collision_mask = 3
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 position = Vector2( -0.610434, 0 )
 shape = SubResource( 2 )
+
+[node name="Scanner" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Scanner"]
+position = Vector2( 26.8814, 1.54498 )
+shape = SubResource( 3 )
+
+[node name="Sprite" type="Sprite" parent="Scanner"]
+modulate = Color( 1, 1, 1, 0.196078 )
+position = Vector2( 274.608, 0.427738 )
+scale = Vector2( 5, 1 )
+texture = ExtResource( 3 )
 [connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]
+[connection signal="body_entered" from="Scanner" to="." method="_on_Scanner_body_entered"]

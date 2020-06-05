@@ -71,6 +71,8 @@ Fire={
 2d_physics/layer_2="Projectiles"
 2d_physics/layer_3="Enemies"
 2d_physics/layer_4="Boundaries"
+2d_physics/layer_5="Scanners"
+2d_physics/layer_6="EnemyProjectiles"
 
 [rendering]
 
