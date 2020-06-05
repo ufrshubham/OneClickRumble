@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://assets/EnemyRed.png" type="Texture" id=1]
+[ext_resource path="res://assets/EnemyYellow.png" type="Texture" id=1]
 [ext_resource path="res://scripts/Emeny.gd" type="Script" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
@@ -9,7 +9,7 @@ extents = Vector2( 15.4621, 13.9772 )
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 24.5996, 21.5665 )
 
-[node name="Emeny" type="KinematicBody2D"]
+[node name="EnemyLevel1" type="KinematicBody2D"]
 collision_layer = 4
 collision_mask = 3
 script = ExtResource( 2 )

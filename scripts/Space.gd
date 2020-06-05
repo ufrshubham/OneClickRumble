@@ -1,12 +1,12 @@
 extends Node2D
 
 var missile = preload("res://scenes/Missile.tscn")
-var emeny = preload("res://scenes/Emeny.tscn")
 onready var window_dim = get_viewport_rect().size
 
 func _ready():
 	# This will ensure that player gets placed at the center of screen.
 	get_node("Player").set_position(window_dim/2)
+	GlobalData.player_pos = get_node("Player").get_position()
 
 func _input(event):
 	if event.is_action_pressed("Fire"):
@@ -15,8 +15,14 @@ func _input(event):
 		get_node("Player").push(500)
 
 func _process(_delta):
+	GlobalData.player_pos = get_node("Player").get_position()
 	if GlobalData.player_lives <= 0:
-		print('Player is dead')
+		pass
+		#print('Player is dead')
+	#if GlobalData.player_score > 80:
+		#GlobalData.player_level = 2
+	if GlobalData.player_score > 100:
+		GlobalData.player_level = 1
 
 func _generate_missile():
 	var new_missile = missile.instance()
@@ -29,7 +35,9 @@ func _on_Timer_timeout():
 	add_child(enemy)
 	
 func _generate_enemy_at_random_location():
-	var new_enemy = emeny.instance()
+	var enemy_level = randi() % (GlobalData.player_level + 1)
+	#var enemy_level = rand_range(0, GlobalData.player_level)
+	var new_enemy = GlobalData.enemy_types[enemy_level].instance()
 	var position = Vector2.ZERO
 	position.x = randi() % int(window_dim.x)
 	position.y = randi() % int(window_dim.y)
