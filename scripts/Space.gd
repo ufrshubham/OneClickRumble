@@ -1,12 +1,12 @@
 extends Node2D
 
-var missile = preload("res://scenes/Missile.tscn")
+var missile = preload("res://scenes/NormalMissile.tscn")
+var health_up = preload("res://scenes/Health.tscn")
 onready var window_dim = get_viewport_rect().size
 
 func _ready():
 	# This will ensure that player gets placed at the center of screen.
 	get_node("Player").set_position(window_dim/2)
-	GlobalData.player_pos = get_node("Player").get_position()
 
 func _input(event):
 	if event.is_action_pressed("Fire"):
@@ -15,7 +15,6 @@ func _input(event):
 		get_node("Player").push(500)
 
 func _process(_delta):
-	GlobalData.player_pos = get_node("Player").get_position()
 	if GlobalData.player_lives <= 0:
 		pass
 		#print('Player is dead')
@@ -23,6 +22,8 @@ func _process(_delta):
 		#GlobalData.player_level = 2
 	if GlobalData.player_score > 100:
 		GlobalData.player_level = 1
+	if  GlobalData.player_score > 150:
+		GlobalData.allow_health_up = true
 
 func _generate_missile():
 	var new_missile = missile.instance()
@@ -62,3 +63,17 @@ func _on_Boundaries_body_entered(body):
 		body.queue_free()
 	elif body.is_in_group("Player"):
 		body.push(-800)
+
+
+func _on_PowerTimer_timeout():
+	if GlobalData.allow_health_up:
+		if  is_instance_valid(GlobalData.current_power):
+			GlobalData.current_power.queue_free()
+		var index = randi() % (GlobalData.power_ups.size())
+		GlobalData.current_power = GlobalData.power_ups[index].instance()
+		var random_pos = Vector2.ZERO
+		random_pos.x = randi() % int(window_dim.x)
+		random_pos.y = randi() % int(window_dim.y)
+		
+		GlobalData.current_power.set_position(random_pos)
+		add_child(GlobalData.current_power)

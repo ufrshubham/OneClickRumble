@@ -42,7 +42,7 @@ position = Vector2( 26.8814, 1.54498 )
 shape = SubResource( 3 )
 
 [node name="Sprite" type="Sprite" parent="Scanner"]
-modulate = Color( 1, 1, 1, 0.196078 )
+modulate = Color( 1, 1, 1, 0.156863 )
 position = Vector2( 274.608, 0.427738 )
 scale = Vector2( 5, 1 )
 texture = ExtResource( 3 )

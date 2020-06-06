@@ -1,7 +1,7 @@
 extends KinematicBody2D
 
-var speed = 0
-var velocity = Vector2.ZERO
+var speed : int = 0
+var velocity : Vector2 = Vector2.ZERO
 
 func _process(_delta):
 	var mouse_pos = get_global_mouse_position()
@@ -21,3 +21,7 @@ func _apply_friction():
 func push(power:int):
 	speed = power
 
+func _on_Area2D_body_entered(body):
+	if body.is_in_group("EnemyProjectiles"):
+		GlobalData.reduce_player_life()
+		body.queue_free()

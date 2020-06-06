@@ -1,8 +1,7 @@
-extends HBoxContainer
+extends AnimatedSprite
 
-func _process(_delta):
-	for i in GlobalData.player_lives_delete_list:
-		var health_node = get_node("Sprite%d" % i)
-		if health_node:
-			health_node.queue_free()
-	GlobalData.player_lives_delete_list = []
+func _on_Area2D_body_entered(body):
+	if body.is_in_group("Player"):
+		if GlobalData.player_lives < 5:
+			GlobalData.increase_player_life()
+			queue_free()

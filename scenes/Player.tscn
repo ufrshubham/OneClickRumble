@@ -1,14 +1,18 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://assets/PlayerCraft.png" type="Texture" id=1]
 [ext_resource path="res://scripts/Player.gd" type="Script" id=2]
 
 [sub_resource type="CapsuleShape2D" id=1]
-radius = 23.121
-height = 10.7829
+radius = 18.3188
+height = 3.29503
+
+[sub_resource type="CapsuleShape2D" id=2]
+radius = 23.8015
+height = 7.78635
 
 [node name="Player" type="KinematicBody2D"]
-collision_mask = 4
+collision_mask = 124
 script = ExtResource( 2 )
 
 [node name="Sprite" type="Sprite" parent="."]
@@ -19,3 +23,12 @@ texture = ExtResource( 1 )
 position = Vector2( -0.854607, 0.488346 )
 rotation = 1.5708
 shape = SubResource( 1 )
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 32
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+rotation = 1.5708
+shape = SubResource( 2 )
+[connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]
