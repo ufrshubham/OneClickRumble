@@ -104,7 +104,6 @@ __meta__ = {
 }
 
 [node name="Health" type="HBoxContainer" parent="HUD"]
-modulate = Color( 1, 1, 1, 0.470588 )
 margin_right = 200.0
 margin_bottom = 90.0
 script = ExtResource( 6 )

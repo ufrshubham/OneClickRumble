@@ -2,6 +2,7 @@ extends KinematicBody2D
 
 var speed : int = 0
 var velocity : Vector2 = Vector2.ZERO
+var shield_power = preload("res://scenes/ShieldPower.tscn")
 
 func _process(_delta):
 	var mouse_pos = get_global_mouse_position()
@@ -20,6 +21,10 @@ func _apply_friction():
 
 func push(power:int):
 	speed = power
+
+func activate_shield():
+	var shield = shield_power.instance()
+	call_deferred("add_child", shield)
 
 func _on_Area2D_body_entered(body):
 	if body.is_in_group("EnemyProjectiles"):

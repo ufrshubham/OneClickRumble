@@ -64,16 +64,15 @@ func _on_Boundaries_body_entered(body):
 	elif body.is_in_group("Player"):
 		body.push(-800)
 
-
 func _on_PowerTimer_timeout():
 	if GlobalData.allow_health_up:
 		if  is_instance_valid(GlobalData.current_power):
 			GlobalData.current_power.queue_free()
+#		if GlobalData.player_lives < 5:
 		var index = randi() % (GlobalData.power_ups.size())
 		GlobalData.current_power = GlobalData.power_ups[index].instance()
 		var random_pos = Vector2.ZERO
 		random_pos.x = randi() % int(window_dim.x)
 		random_pos.y = randi() % int(window_dim.y)
-		
 		GlobalData.current_power.set_position(random_pos)
 		add_child(GlobalData.current_power)

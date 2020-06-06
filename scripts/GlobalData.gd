@@ -12,7 +12,8 @@ var enemy_types:Array = [
 	preload("res://scenes/EnemyLevel2.tscn")
 ]
 var power_ups:Array = [
-	preload("res://scenes/Health.tscn")
+	preload("res://scenes/Health.tscn"),
+	preload("res://scenes/Shield.tscn")
 ]
 
 func reduce_player_life():

@@ -1,5 +1,6 @@
 extends KinematicBody2D
 
+var enemy_worth = 10
 var enemy_velocity: Vector2 = Vector2(50, 0)
 
 # Override this method to setup initial state of this enemy.

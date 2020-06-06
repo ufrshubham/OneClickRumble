@@ -3,6 +3,7 @@ extends "res://scripts/Emeny.gd"
 var missile = preload("res://scenes/EnemyMissile.tscn")
 
 func _on_enemy_ready():
+	enemy_worth = 20
 	self.enemy_velocity = Vector2(120, 0)
 
 func _on_Scanner_body_entered(body):
@@ -23,4 +24,7 @@ func _fire():
 	get_tree().get_current_scene().call_deferred("add_child", new_missile)
 
 func _on_projectile_collision(_projectile):
-	GlobalData.player_score += 20
+	GlobalData.player_score += enemy_worth
+
+func _on_FireTimer_timeout():
+	_fire()
