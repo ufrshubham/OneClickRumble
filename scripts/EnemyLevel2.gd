@@ -15,6 +15,7 @@ func _fire():
 	new_missile.transform = Transform2D(get_global_rotation(), get_position())
 	new_missile.velocity = Vector2(800, 0)
 	new_missile.add_to_group("EnemyProjectiles")
+	new_missile.set_z_index(-1)
 	
 	# Apparently you cannot add new Area nodes while on_entered() is being processed
 	# for another Area node. Not yet sure what call_deferred() exactly does,

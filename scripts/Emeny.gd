@@ -23,8 +23,9 @@ func _ready():
 	enemy_velocity = enemy_velocity.rotated(get_rotation())
 
 func _process(delta):
-	# warning-ignore:return_value_discarded
-	move_and_collide(enemy_velocity * delta)
+	if GlobalData.pause_enemies == false:
+		# warning-ignore:return_value_discarded
+		move_and_collide(enemy_velocity * delta)
 	_custom_process(delta)
 
 func _on_Area2D_body_entered(body):
@@ -34,6 +35,7 @@ func _on_Area2D_body_entered(body):
 		_on_projectile_collision(body)
 		body.queue_free()
 		queue_free()
+	get_tree().get_current_scene().get_node("ExplosionPlayer").play()
 
 func _handle_player_collision(player):
 	GlobalData.reduce_player_life()

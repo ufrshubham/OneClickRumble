@@ -7,14 +7,34 @@ onready var window_dim = get_viewport_rect().size
 func _ready():
 	# This will ensure that player gets placed at the center of screen.
 	get_node("Player").set_position(window_dim/2)
+	
+	get_node("Boundaries/Top").set_position(Vector2.ZERO)
+	get_node("Boundaries/Left").set_position(Vector2.ZERO)
+	get_node("Boundaries/Bottom").set_position(Vector2(0, window_dim.y))
+	get_node("Boundaries/Right").set_position(Vector2(window_dim.x, 0))
+	get_node("Boundaries/StaticBody2D/Right").set_position(Vector2(window_dim.x + 52, 0))
 
-func _input(event):
-	if event.is_action_pressed("Fire"):
-		var missile = _generate_missile()
-		add_child(missile)		
-		get_node("Player").push(500)
+func _input(_event):
+	pass
 
 func _process(_delta):
+	if Input.is_action_just_pressed("Fire"):
+		var missile = _generate_missile()
+		missile.set_z_index(-1)
+		add_child(missile)
+		get_node("FirePlayer").play()
+		if GlobalData.burst_fire:
+			for i in range(2):
+				var new_missile = _generate_missile()
+				if i < 1:
+					new_missile.set_rotation_degrees(new_missile.get_rotation_degrees() + 15)
+				else:
+					new_missile.set_rotation_degrees(new_missile.get_rotation_degrees() - 15)
+				new_missile.set_z_index(-1)
+				add_child(new_missile)
+	elif Input.is_action_pressed("Fire"):
+		get_node("Player").push(GlobalData.player_speed)
+	
 	if GlobalData.player_lives <= 0:
 		pass
 		#print('Player is dead')
@@ -68,8 +88,16 @@ func _on_PowerTimer_timeout():
 	if GlobalData.allow_health_up:
 		if  is_instance_valid(GlobalData.current_power):
 			GlobalData.current_power.queue_free()
-#		if GlobalData.player_lives < 5:
+			
 		var index = randi() % (GlobalData.power_ups.size())
+		
+		# This will avoid health power-up if health is already full
+		# and burst fire power-up if player already has burst fire. 
+		while index == 0 and GlobalData.player_lives == 5:
+			index = randi() % (GlobalData.power_ups.size())
+		while index == 4 and GlobalData.burst_fire == true:
+			index = randi() % (GlobalData.power_ups.size())
+			
 		GlobalData.current_power = GlobalData.power_ups[index].instance()
 		var random_pos = Vector2.ZERO
 		random_pos.x = randi() % int(window_dim.x)

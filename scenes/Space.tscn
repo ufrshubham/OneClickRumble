@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scripts/Space.gd" type="Script" id=2]
@@ -6,6 +6,8 @@
 [ext_resource path="res://res/Piedra-Regular.tres" type="DynamicFont" id=4]
 [ext_resource path="res://scripts/Score.gd" type="Script" id=5]
 [ext_resource path="res://scripts/HealthHud.gd" type="Script" id=6]
+[ext_resource path="res://res/Fire.wav" type="AudioStream" id=7]
+[ext_resource path="res://res/Explosion.wav" type="AudioStream" id=8]
 
 [sub_resource type="SegmentShape2D" id=1]
 b = Vector2( 1280, 0 )
@@ -14,18 +16,19 @@ b = Vector2( 1280, 0 )
 b = Vector2( 0, 720 )
 
 [sub_resource type="SegmentShape2D" id=3]
-a = Vector2( 0, 720 )
-b = Vector2( 1280, 720 )
+b = Vector2( 1280, 0 )
 
 [sub_resource type="SegmentShape2D" id=4]
-a = Vector2( 1280, 0 )
-b = Vector2( 1280, 720 )
+b = Vector2( 0, 720 )
 
 [sub_resource type="RectangleShape2D" id=5]
 extents = Vector2( 50, 400 )
 
 [sub_resource type="RectangleShape2D" id=6]
-extents = Vector2( 50, 650 )
+extents = Vector2( 50, 1000 )
+
+[sub_resource type="RectangleShape2D" id=7]
+extents = Vector2( 640, 360 )
 
 [node name="Space" type="Node2D"]
 script = ExtResource( 2 )
@@ -42,36 +45,42 @@ autostart = true
 collision_layer = 8
 collision_mask = 7
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Boundaries"]
+[node name="Top" type="CollisionShape2D" parent="Boundaries"]
+visible = false
 shape = SubResource( 1 )
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="Boundaries"]
+[node name="Left" type="CollisionShape2D" parent="Boundaries"]
+visible = false
 shape = SubResource( 2 )
 
-[node name="CollisionShape2D3" type="CollisionShape2D" parent="Boundaries"]
+[node name="Bottom" type="CollisionShape2D" parent="Boundaries"]
+visible = false
+position = Vector2( 0, 720 )
 shape = SubResource( 3 )
 
-[node name="CollisionShape2D4" type="CollisionShape2D" parent="Boundaries"]
+[node name="Right" type="CollisionShape2D" parent="Boundaries"]
+visible = false
+position = Vector2( 1280, 0 )
 shape = SubResource( 4 )
 
 [node name="StaticBody2D" type="StaticBody2D" parent="Boundaries"]
 collision_layer = 8
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Boundaries/StaticBody2D"]
-position = Vector2( -52.9703, 364.777 )
+[node name="Left" type="CollisionShape2D" parent="Boundaries/StaticBody2D"]
+position = Vector2( -52, 360 )
 shape = SubResource( 5 )
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="Boundaries/StaticBody2D"]
-position = Vector2( 1331.85, 360.87 )
+[node name="Right" type="CollisionShape2D" parent="Boundaries/StaticBody2D"]
+position = Vector2( 1332, 360 )
 shape = SubResource( 5 )
 
-[node name="CollisionShape2D3" type="CollisionShape2D" parent="Boundaries/StaticBody2D"]
-position = Vector2( 639.226, -52.3513 )
+[node name="Top" type="CollisionShape2D" parent="Boundaries/StaticBody2D"]
+position = Vector2( 640, -52 )
 rotation = 1.5708
 shape = SubResource( 6 )
 
-[node name="CollisionShape2D4" type="CollisionShape2D" parent="Boundaries/StaticBody2D"]
-position = Vector2( 640.358, 772.841 )
+[node name="Bottom" type="CollisionShape2D" parent="Boundaries/StaticBody2D"]
+position = Vector2( 640, 772 )
 rotation = 1.5708
 shape = SubResource( 6 )
 
@@ -157,6 +166,17 @@ text = "Score : 0"
 [node name="PowerTimer" type="Timer" parent="."]
 wait_time = 5.0
 autostart = true
+
+[node name="FirePlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 7 )
+
+[node name="ExplosionPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 8 )
+
+[node name="FireButton" type="TouchScreenButton" parent="."]
+shape = SubResource( 7 )
+action = "Fire"
+visibility_mode = 1
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
 [connection signal="body_entered" from="Boundaries" to="." method="_on_Boundaries_body_entered"]
 [connection signal="timeout" from="PowerTimer" to="." method="_on_PowerTimer_timeout"]

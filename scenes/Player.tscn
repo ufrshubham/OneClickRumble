@@ -40,4 +40,14 @@ collision_mask = 32
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 rotation = 1.5708
 shape = SubResource( 3 )
+
+[node name="SpeedBoostTimer" type="Timer" parent="."]
+wait_time = 4.0
+one_shot = true
+
+[node name="PauseEnemiesTimer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
 [connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]
+[connection signal="timeout" from="SpeedBoostTimer" to="." method="_on_SpeedBoostTimer_timeout"]
+[connection signal="timeout" from="PauseEnemiesTimer" to="." method="_on_PauseEnemiesTimer_timeout"]
