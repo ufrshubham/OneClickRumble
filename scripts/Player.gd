@@ -14,6 +14,9 @@ func _process(_delta):
 	velocity = move_and_slide(velocity * speed)
 	_apply_friction()
 
+func show_particles():
+	get_node("CPUParticles2D").set_emitting(true)
+
 func _apply_friction():
 	if speed > 0:
 		speed -= 25
@@ -32,10 +35,10 @@ func _on_Area2D_body_entered(body):
 		GlobalData.reduce_player_life()
 		body.queue_free()
 
-
 func _on_SpeedBoostTimer_timeout():
 	GlobalData.player_speed = 250
-
+	get_node("CPUParticles2D").set_emitting(false)
+	
 
 func _on_PauseEnemiesTimer_timeout():
 	GlobalData.pause_enemies = false

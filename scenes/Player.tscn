@@ -14,12 +14,24 @@ radius = 18.3188
 height = 3.29503
 
 [sub_resource type="CapsuleShape2D" id=3]
-radius = 23.8015
+radius = 26.1695
 height = 7.78635
 
 [node name="Player" type="KinematicBody2D"]
 collision_mask = 124
 script = ExtResource( 2 )
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+position = Vector2( -21.0817, 0.790565 )
+rotation = 1.5708
+emitting = false
+amount = 100
+speed_scale = 3.0
+lifetime_randomness = 1.0
+direction = Vector2( 0, 1 )
+initial_velocity = 50.0
+scale_amount = 2.0
+color = Color( 0.85098, 0.85098, 0.85098, 1 )
 
 [node name="Sprite" type="Sprite" parent="."]
 rotation = 1.5708

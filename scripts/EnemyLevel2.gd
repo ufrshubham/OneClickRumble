@@ -23,6 +23,7 @@ func _fire():
 	# it basically triggers the given method with given parameters after 
 	# the on_entered() signal completes.
 	get_tree().get_current_scene().call_deferred("add_child", new_missile)
+	get_tree().get_current_scene().get_node("FirePlayer").play()
 
 func _on_projectile_collision(_projectile):
 	GlobalData.player_score += enemy_worth

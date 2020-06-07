@@ -22,7 +22,6 @@ radius = 23.0843
 scale = Vector2( 0.8, 0.8 )
 frames = SubResource( 1 )
 animation = "Rotation"
-frame = 4
 playing = true
 script = ExtResource( 6 )
 

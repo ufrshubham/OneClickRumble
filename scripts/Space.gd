@@ -14,33 +14,20 @@ func _ready():
 	get_node("Boundaries/Right").set_position(Vector2(window_dim.x, 0))
 	get_node("Boundaries/StaticBody2D/Right").set_position(Vector2(window_dim.x + 52, 0))
 
-func _input(_event):
-	pass
-
 func _process(_delta):
 	if Input.is_action_just_pressed("Fire"):
-		var missile = _generate_missile()
-		missile.set_z_index(-1)
-		add_child(missile)
-		get_node("FirePlayer").play()
-		if GlobalData.burst_fire:
-			for i in range(2):
-				var new_missile = _generate_missile()
-				if i < 1:
-					new_missile.set_rotation_degrees(new_missile.get_rotation_degrees() + 15)
-				else:
-					new_missile.set_rotation_degrees(new_missile.get_rotation_degrees() - 15)
-				new_missile.set_z_index(-1)
-				add_child(new_missile)
+		_fire()
 	elif Input.is_action_pressed("Fire"):
 		get_node("Player").push(GlobalData.player_speed)
 	
 	if GlobalData.player_lives <= 0:
-		pass
-		#print('Player is dead')
-	#if GlobalData.player_score > 80:
-		#GlobalData.player_level = 2
-	if GlobalData.player_score > 100:
+		GlobalData.reset()
+# warning-ignore:return_value_discarded
+		get_tree().reload_current_scene()
+
+	if GlobalData.player_score > 500:
+		GlobalData.player_level = 2
+	elif GlobalData.player_score > 100:
 		GlobalData.player_level = 1
 	if  GlobalData.player_score > 150:
 		GlobalData.allow_health_up = true
@@ -57,7 +44,6 @@ func _on_Timer_timeout():
 	
 func _generate_enemy_at_random_location():
 	var enemy_level = randi() % (GlobalData.player_level + 1)
-	#var enemy_level = rand_range(0, GlobalData.player_level)
 	var new_enemy = GlobalData.enemy_types[enemy_level].instance()
 	var position = Vector2.ZERO
 	position.x = randi() % int(window_dim.x)
@@ -104,3 +90,23 @@ func _on_PowerTimer_timeout():
 		random_pos.y = randi() % int(window_dim.y)
 		GlobalData.current_power.set_position(random_pos)
 		add_child(GlobalData.current_power)
+
+func _fire():
+	var new_missile = _generate_missile()
+	new_missile.set_z_index(-1)
+	add_child(new_missile)
+	get_node("FirePlayer").play()
+	if GlobalData.burst_fire:
+		for i in range(2):
+			var additional_missile = _generate_missile()
+			if i < 1:
+				additional_missile.set_rotation_degrees(additional_missile.get_rotation_degrees() + 15)
+			else:
+				additional_missile.set_rotation_degrees(additional_missile.get_rotation_degrees() - 15)
+			additional_missile.set_z_index(-1)
+			add_child(additional_missile)
+	elif GlobalData.front_n_back_fire:
+		var additional_missile = _generate_missile()
+		additional_missile.set_rotation_degrees(additional_missile.get_rotation_degrees() - 180)
+		additional_missile.set_z_index(-1)
+		add_child(additional_missile)

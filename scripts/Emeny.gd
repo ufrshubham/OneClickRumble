@@ -26,7 +26,7 @@ func _process(delta):
 	if GlobalData.pause_enemies == false:
 		# warning-ignore:return_value_discarded
 		move_and_collide(enemy_velocity * delta)
-	_custom_process(delta)
+		_custom_process(delta)
 
 func _on_Area2D_body_entered(body):
 	if body.is_in_group('Player'):
