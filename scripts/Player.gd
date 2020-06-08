@@ -37,8 +37,10 @@ func _on_Area2D_body_entered(body):
 
 func _on_SpeedBoostTimer_timeout():
 	GlobalData.player_speed = 250
-	get_node("CPUParticles2D").set_emitting(false)
-	
+	get_node("CPUParticles2D").set_emitting(false)	
 
 func _on_PauseEnemiesTimer_timeout():
 	GlobalData.pause_enemies = false
+
+func _on_HomingMissileTimer_timeout():
+	GlobalData.has_homing_missile = false

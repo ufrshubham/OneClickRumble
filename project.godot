@@ -30,7 +30,6 @@ GlobalData="*res://scripts/GlobalData.gd"
 window/size/width=1280
 window/size/height=720
 window/size/resizable=false
-window/size/fullscreen=true
 window/size/test_width=853
 window/size/test_height=480
 window/stretch/mode="2d"
@@ -80,6 +79,7 @@ pointing/emulate_touch_from_mouse=true
 2d_physics/layer_5="Scanners"
 2d_physics/layer_6="EnemyProjectiles"
 2d_physics/layer_7="PowerUps"
+2d_physics/layer_8="PlayerScanners"
 
 [rendering]
 

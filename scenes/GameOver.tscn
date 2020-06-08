@@ -1,11 +1,10 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://assets/PlayerCraft.png" type="Texture" id=1]
-[ext_resource path="res://res/Piedra-Regular-MainMenu.tres" type="DynamicFont" id=2]
-[ext_resource path="res://scripts/MainMenu.gd" type="Script" id=3]
+[ext_resource path="res://res/Piedra-Regular-MainMenu.tres" type="DynamicFont" id=1]
+[ext_resource path="res://scripts/GameOver.gd" type="Script" id=2]
 
-[node name="MainMenu" type="Node2D"]
-script = ExtResource( 3 )
+[node name="GameOver" type="Node2D"]
+script = ExtResource( 2 )
 
 [node name="Stars" type="CPUParticles2D" parent="."]
 position = Vector2( 640, 360 )
@@ -44,22 +43,26 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="PlayButton" type="Button" parent="ButtonsCenter/VBoxContainer"]
+[node name="Score" type="Label" parent="ButtonsCenter/VBoxContainer"]
 margin_right = 500.0
-margin_bottom = 72.0
-custom_fonts/font = ExtResource( 2 )
-text = "Play"
+margin_bottom = 66.0
+custom_fonts/font = ExtResource( 1 )
+text = "Your Score : 0"
+align = 1
+valign = 1
+
+[node name="RetryButton" type="Button" parent="ButtonsCenter/VBoxContainer"]
+margin_top = 70.0
+margin_right = 500.0
+margin_bottom = 142.0
+custom_fonts/font = ExtResource( 1 )
+text = "Retry"
 
 [node name="ExitButton" type="Button" parent="ButtonsCenter/VBoxContainer"]
-margin_top = 76.0
+margin_top = 146.0
 margin_right = 500.0
-margin_bottom = 148.0
-custom_fonts/font = ExtResource( 2 )
+margin_bottom = 218.0
+custom_fonts/font = ExtResource( 1 )
 text = "Exit"
-
-[node name="GameTitle" type="Sprite" parent="."]
-position = Vector2( 641.146, 166.222 )
-scale = Vector2( 2, 2 )
-texture = ExtResource( 1 )
-[connection signal="button_up" from="ButtonsCenter/VBoxContainer/PlayButton" to="." method="_on_PlayButton_button_up"]
+[connection signal="button_up" from="ButtonsCenter/VBoxContainer/RetryButton" to="." method="_on_RetryButton_button_up"]
 [connection signal="button_up" from="ButtonsCenter/VBoxContainer/ExitButton" to="." method="_on_ExitButton_button_up"]

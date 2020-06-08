@@ -60,6 +60,11 @@ one_shot = true
 [node name="PauseEnemiesTimer" type="Timer" parent="."]
 wait_time = 2.0
 one_shot = true
+
+[node name="HomingMissileTimer" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
 [connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]
 [connection signal="timeout" from="SpeedBoostTimer" to="." method="_on_SpeedBoostTimer_timeout"]
 [connection signal="timeout" from="PauseEnemiesTimer" to="." method="_on_PauseEnemiesTimer_timeout"]
+[connection signal="timeout" from="HomingMissileTimer" to="." method="_on_HomingMissileTimer_timeout"]

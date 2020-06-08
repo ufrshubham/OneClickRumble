@@ -21,26 +21,22 @@ func _process(_delta):
 		get_node("Player").push(GlobalData.player_speed)
 	
 	if GlobalData.player_lives <= 0:
-		GlobalData.reset()
-# warning-ignore:return_value_discarded
-		get_tree().reload_current_scene()
+		get_tree().change_scene("res://scenes/GameOver.tscn")
 
 	if GlobalData.player_score > 500:
 		GlobalData.player_level = 2
 	elif GlobalData.player_score > 100:
 		GlobalData.player_level = 1
-	if  GlobalData.player_score > 150:
-		GlobalData.allow_health_up = true
+	if  GlobalData.player_score > 50:
+		GlobalData.allow_power_up = true
+	if GlobalData.player_score > 1000:
+		get_node("EnemySpawnTimer").set_wait_time(0.5)
 
 func _generate_missile():
 	var new_missile = missile.instance()
 	new_missile.transform = Transform2D(get_node("Player").get_global_rotation(), get_node("Player").get_position())
 	new_missile.add_to_group("Projectiles")
 	return new_missile
-
-func _on_Timer_timeout():
-	var enemy = _generate_enemy_at_random_location()
-	add_child(enemy)
 	
 func _generate_enemy_at_random_location():
 	var enemy_level = randi() % (GlobalData.player_level + 1)
@@ -62,6 +58,10 @@ func _generate_enemy_at_random_location():
 	new_enemy.add_to_group("Enemies")
 	return new_enemy
 
+func _on_EnemySpawnTimer_timeout():
+	var enemy = _generate_enemy_at_random_location()
+	add_child(enemy)
+
 func _on_Boundaries_body_entered(body):
 	if body.is_in_group("Enemies"):
 		body.queue_free()
@@ -71,18 +71,19 @@ func _on_Boundaries_body_entered(body):
 		body.push(-800)
 
 func _on_PowerTimer_timeout():
-	if GlobalData.allow_health_up:
+	if GlobalData.allow_power_up:
 		if  is_instance_valid(GlobalData.current_power):
 			GlobalData.current_power.queue_free()
-			
-		var index = randi() % (GlobalData.power_ups.size())
+		
+		var max_power_level = GlobalData.get_max_allowed_power()
+		var index = randi() % max_power_level
 		
 		# This will avoid health power-up if health is already full
 		# and burst fire power-up if player already has burst fire. 
 		while index == 0 and GlobalData.player_lives == 5:
-			index = randi() % (GlobalData.power_ups.size())
+			index = randi() % max_power_level
 		while index == 4 and GlobalData.burst_fire == true:
-			index = randi() % (GlobalData.power_ups.size())
+			index = randi() % max_power_level
 			
 		GlobalData.current_power = GlobalData.power_ups[index].instance()
 		var random_pos = Vector2.ZERO
