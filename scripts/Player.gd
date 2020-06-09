@@ -44,3 +44,4 @@ func _on_PauseEnemiesTimer_timeout():
 
 func _on_HomingMissileTimer_timeout():
 	GlobalData.has_homing_missile = false
+

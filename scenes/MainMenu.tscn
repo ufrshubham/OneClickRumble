@@ -29,7 +29,7 @@ hue_variation = 1.0
 hue_variation_random = 1.0
 
 [node name="ButtonsCenter" type="Node2D" parent="."]
-position = Vector2( 640, 360 )
+position = Vector2( 640, 460 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="ButtonsCenter"]
 margin_left = -50.0
@@ -49,17 +49,34 @@ margin_right = 500.0
 margin_bottom = 72.0
 custom_fonts/font = ExtResource( 2 )
 text = "Play"
+expand_icon = true
 
-[node name="ExitButton" type="Button" parent="ButtonsCenter/VBoxContainer"]
+[node name="Details" type="Button" parent="ButtonsCenter/VBoxContainer"]
 margin_top = 76.0
 margin_right = 500.0
 margin_bottom = 148.0
 custom_fonts/font = ExtResource( 2 )
+text = "Details"
+
+[node name="Credits" type="Button" parent="ButtonsCenter/VBoxContainer"]
+margin_top = 152.0
+margin_right = 500.0
+margin_bottom = 224.0
+custom_fonts/font = ExtResource( 2 )
+text = "Credits"
+
+[node name="ExitButton" type="Button" parent="ButtonsCenter/VBoxContainer"]
+margin_top = 228.0
+margin_right = 500.0
+margin_bottom = 300.0
+custom_fonts/font = ExtResource( 2 )
 text = "Exit"
 
 [node name="GameTitle" type="Sprite" parent="."]
-position = Vector2( 641.146, 166.222 )
+position = Vector2( 640, 160 )
 scale = Vector2( 2, 2 )
 texture = ExtResource( 1 )
 [connection signal="button_up" from="ButtonsCenter/VBoxContainer/PlayButton" to="." method="_on_PlayButton_button_up"]
+[connection signal="button_up" from="ButtonsCenter/VBoxContainer/Details" to="." method="_on_Details_button_up"]
+[connection signal="button_up" from="ButtonsCenter/VBoxContainer/Credits" to="." method="_on_Credits_button_up"]
 [connection signal="button_up" from="ButtonsCenter/VBoxContainer/ExitButton" to="." method="_on_ExitButton_button_up"]

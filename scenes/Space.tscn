@@ -171,13 +171,15 @@ autostart = true
 
 [node name="FirePlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 7 )
-volume_db = -5.0
+volume_db = -20.0
 
 [node name="ExplosionPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 8 )
+volume_db = -10.0
 
 [node name="PickupPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 10 )
+volume_db = 1.0
 
 [node name="FireButton" type="TouchScreenButton" parent="."]
 shape = SubResource( 7 )
@@ -186,7 +188,7 @@ visibility_mode = 1
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 9 )
-volume_db = -10.0
+volume_db = -18.0
 autoplay = true
 [connection signal="timeout" from="EnemySpawnTimer" to="." method="_on_EnemySpawnTimer_timeout"]
 [connection signal="body_entered" from="Boundaries" to="." method="_on_Boundaries_body_entered"]

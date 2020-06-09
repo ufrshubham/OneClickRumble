@@ -1,0 +1,89 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://res/Piedra-Regular-MainMenu.tres" type="DynamicFont" id=1]
+[ext_resource path="res://scripts/Credits.gd" type="Script" id=2]
+
+[sub_resource type="DynamicFontData" id=1]
+font_path = "res://assets/Piedra-Regular.ttf"
+
+[sub_resource type="DynamicFont" id=2]
+size = 30
+outline_color = Color( 0.945098, 1, 0, 1 )
+use_filter = true
+font_data = SubResource( 1 )
+
+[node name="Credits" type="Node2D"]
+script = ExtResource( 2 )
+
+[node name="Stars" type="CPUParticles2D" parent="."]
+position = Vector2( 640, 360 )
+z_index = -1
+amount = 100
+lifetime = 4.0
+preprocess = 1.0
+speed_scale = 0.2
+randomness = 1.0
+lifetime_randomness = 1.0
+fixed_fps = 30
+emission_shape = 2
+emission_rect_extents = Vector2( 640, 360 )
+spread = 180.0
+gravity = Vector2( 0, 0 )
+initial_velocity = 50.0
+initial_velocity_random = 1.0
+scale_amount = 2.0
+color = Color( 0.968627, 0.917647, 0.505882, 1 )
+hue_variation = 1.0
+hue_variation_random = 1.0
+
+[node name="Text" type="Node2D" parent="."]
+position = Vector2( 640, 110 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Text"]
+margin_left = -230.548
+margin_top = -65.8707
+margin_right = 229.452
+margin_bottom = 361.129
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Text/VBoxContainer"]
+margin_right = 460.0
+margin_bottom = 427.0
+custom_fonts/font = SubResource( 2 )
+text = "Game design, sprites and programming
+Shubham Kamble
+
+SFX
+Laser Shot Silenced - by bubaproducer
+Item Pickup - by TreasureSounds
+Hit1.wav - by alphatrooper18
+
+BGM
+Party On!! Var_1 - by void1gaming"
+align = 1
+
+[node name="ButtonsCenter" type="Node2D" parent="."]
+position = Vector2( 640, 560 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ButtonsCenter"]
+margin_left = -50.0
+margin_top = -74.0
+margin_right = 50.0
+margin_bottom = 74.0
+grow_horizontal = 2
+grow_vertical = 2
+rect_min_size = Vector2( 500, 0 )
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Back" type="Button" parent="ButtonsCenter/VBoxContainer"]
+margin_top = 38.0
+margin_right = 500.0
+margin_bottom = 110.0
+custom_fonts/font = ExtResource( 1 )
+text = "Back"
+[connection signal="button_up" from="ButtonsCenter/VBoxContainer/Back" to="." method="_on_Back_button_up"]

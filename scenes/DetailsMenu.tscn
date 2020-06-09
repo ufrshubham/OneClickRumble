@@ -1,0 +1,239 @@
+[gd_scene load_steps=14 format=2]
+
+[ext_resource path="res://res/Piedra-Regular-MainMenu.tres" type="DynamicFont" id=1]
+[ext_resource path="res://scripts/DetailsMenu.gd" type="Script" id=2]
+[ext_resource path="res://assets/BurstFire.png" type="Texture" id=3]
+[ext_resource path="res://assets/HomingMissile.png" type="Texture" id=4]
+[ext_resource path="res://assets/FrontnBackFire.png" type="Texture" id=5]
+[ext_resource path="res://assets/SpeedBoost.png" type="Texture" id=6]
+[ext_resource path="res://assets/Shield.png" type="Texture" id=7]
+[ext_resource path="res://assets/Health.png" type="Texture" id=8]
+[ext_resource path="res://assets/Pause.png" type="Texture" id=9]
+[ext_resource path="res://assets/EnemyRed.png" type="Texture" id=10]
+[ext_resource path="res://assets/EnemyYellow.png" type="Texture" id=11]
+[ext_resource path="res://assets/EnemySilverYellow.png" type="Texture" id=12]
+[ext_resource path="res://res/Piedra-Regular-Details.tres" type="DynamicFont" id=13]
+
+[node name="DetailsMenu" type="Node2D"]
+script = ExtResource( 2 )
+
+[node name="Stars" type="CPUParticles2D" parent="."]
+position = Vector2( 640, 360 )
+z_index = -1
+amount = 100
+lifetime = 4.0
+preprocess = 1.0
+speed_scale = 0.2
+randomness = 1.0
+lifetime_randomness = 1.0
+fixed_fps = 30
+emission_shape = 2
+emission_rect_extents = Vector2( 640, 360 )
+spread = 180.0
+gravity = Vector2( 0, 0 )
+initial_velocity = 50.0
+initial_velocity_random = 1.0
+scale_amount = 2.0
+color = Color( 0.968627, 0.917647, 0.505882, 1 )
+hue_variation = 1.0
+hue_variation_random = 1.0
+
+[node name="ButtonsCenter" type="Node2D" parent="."]
+position = Vector2( 640, 560 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ButtonsCenter"]
+margin_left = -50.0
+margin_top = -74.0
+margin_right = 50.0
+margin_bottom = 74.0
+grow_horizontal = 2
+grow_vertical = 2
+rect_min_size = Vector2( 500, 0 )
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Back" type="Button" parent="ButtonsCenter/VBoxContainer"]
+margin_top = 38.0
+margin_right = 500.0
+margin_bottom = 110.0
+custom_fonts/font = ExtResource( 1 )
+text = "Back"
+
+[node name="Power-Ups" type="Node2D" parent="."]
+position = Vector2( 640, 160 )
+
+[node name="Health" type="Sprite" parent="Power-Ups"]
+position = Vector2( -450, 0 )
+texture = ExtResource( 8 )
+
+[node name="Label" type="Label" parent="Power-Ups/Health"]
+margin_left = -25.7936
+margin_top = 34.3674
+margin_right = 52.2064
+margin_bottom = 74.3674
+custom_fonts/font = ExtResource( 13 )
+text = "Health"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Pause" type="Sprite" parent="Power-Ups"]
+position = Vector2( -300, 0 )
+texture = ExtResource( 9 )
+
+[node name="Label2" type="Label" parent="Power-Ups/Pause"]
+margin_left = -57.3099
+margin_top = 35.0045
+margin_right = 118.69
+margin_bottom = 75.0045
+custom_fonts/font = ExtResource( 13 )
+text = "Pause Enemies"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Shield" type="Sprite" parent="Power-Ups"]
+position = Vector2( -150, 0 )
+texture = ExtResource( 7 )
+
+[node name="Label3" type="Label" parent="Power-Ups/Shield"]
+margin_left = -25.3356
+margin_top = 38.5114
+margin_right = 52.6644
+margin_bottom = 78.5114
+custom_fonts/font = ExtResource( 13 )
+text = "Shield"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BiDirectionalFire" type="Sprite" parent="Power-Ups"]
+texture = ExtResource( 5 )
+
+[node name="Label4" type="Label" parent="Power-Ups/BiDirectionalFire"]
+margin_left = -73.7001
+margin_top = 39.5466
+margin_right = 144.3
+margin_bottom = 79.5466
+custom_fonts/font = ExtResource( 13 )
+text = "Bi-directional Fire"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SpeedUp" type="Sprite" parent="Power-Ups"]
+position = Vector2( 150, 0 )
+texture = ExtResource( 6 )
+
+[node name="Label5" type="Label" parent="Power-Ups/SpeedUp"]
+margin_left = -38.5735
+margin_top = 38.7728
+margin_right = 68.4265
+margin_bottom = 78.7728
+custom_fonts/font = ExtResource( 13 )
+text = "Speed Up"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TripleFire" type="Sprite" parent="Power-Ups"]
+position = Vector2( 300, 0 )
+texture = ExtResource( 3 )
+
+[node name="Label6" type="Label" parent="Power-Ups/TripleFire"]
+margin_left = -42.1743
+margin_top = 36.8759
+margin_right = 82.8257
+margin_bottom = 76.8759
+custom_fonts/font = ExtResource( 13 )
+text = "Triple Fire"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Homing" type="Sprite" parent="Power-Ups"]
+position = Vector2( 450, 0 )
+texture = ExtResource( 4 )
+
+[node name="Label7" type="Label" parent="Power-Ups/Homing"]
+margin_left = -50.6049
+margin_top = 37.8551
+margin_right = 74.3951
+margin_bottom = 77.8551
+custom_fonts/font = ExtResource( 13 )
+text = "Homing Missile"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Power-Ups"]
+margin_left = -112.0
+margin_top = -92.0
+margin_right = 111.0
+margin_bottom = -26.0
+custom_fonts/font = ExtResource( 1 )
+text = "Power-ups"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Enemies" type="Node2D" parent="."]
+position = Vector2( 640, 360 )
+
+[node name="Enemy1" type="Sprite" parent="Enemies"]
+position = Vector2( -150, 0 )
+texture = ExtResource( 11 )
+
+[node name="Label" type="Label" parent="Enemies/Enemy1"]
+margin_left = -23.7434
+margin_top = 34.2185
+margin_right = 21.2566
+margin_bottom = 61.2185
+custom_fonts/font = ExtResource( 13 )
+text = "Dumb"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Enemy2" type="Sprite" parent="Enemies"]
+texture = ExtResource( 10 )
+
+[node name="Label2" type="Label" parent="Enemies/Enemy2"]
+margin_left = -46.228
+margin_top = 36.3135
+margin_right = 54.772
+margin_bottom = 63.3135
+custom_fonts/font = ExtResource( 13 )
+text = "Fires rapidly"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Enemy3" type="Sprite" parent="Enemies"]
+position = Vector2( 150, 0 )
+texture = ExtResource( 12 )
+
+[node name="Label3" type="Label" parent="Enemies/Enemy3"]
+margin_left = -57.5391
+margin_top = 36.3135
+margin_right = 82.4609
+margin_bottom = 63.3135
+custom_fonts/font = ExtResource( 13 )
+text = "Follows and fires"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Enemies"]
+margin_left = -80.0
+margin_top = -93.0
+margin_right = 85.0
+margin_bottom = -27.0
+custom_fonts/font = ExtResource( 1 )
+text = "Enemies"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="button_up" from="ButtonsCenter/VBoxContainer/Back" to="." method="_on_Back_button_up"]

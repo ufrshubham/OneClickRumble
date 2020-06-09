@@ -29,8 +29,12 @@ func _process(_delta):
 		GlobalData.player_level = 1
 	if  GlobalData.player_score > 50:
 		GlobalData.allow_power_up = true
-	if GlobalData.player_score > 1000:
-		get_node("EnemySpawnTimer").set_wait_time(0.5)
+	if GlobalData.player_score > 1500:
+		get_node("EnemySpawnTimer").set_wait_time(0.2)
+	elif GlobalData.player_score > 1000:
+		get_node("EnemySpawnTimer").set_wait_time(0.4)
+	elif GlobalData.player_score > 500:
+		get_node("EnemySpawnTimer").set_wait_time(0.6)
 
 func _generate_missile():
 	var new_missile = missile.instance()
@@ -87,8 +91,8 @@ func _on_PowerTimer_timeout():
 			
 		GlobalData.current_power = GlobalData.power_ups[index].instance()
 		var random_pos = Vector2.ZERO
-		random_pos.x = randi() % int(window_dim.x)
-		random_pos.y = randi() % int(window_dim.y)
+		random_pos.x = randi() % int(window_dim.x - 10)
+		random_pos.y = randi() % int(window_dim.y - 10)
 		GlobalData.current_power.set_position(random_pos)
 		add_child(GlobalData.current_power)
 
