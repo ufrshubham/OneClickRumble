@@ -182,6 +182,7 @@ stream = ExtResource( 10 )
 volume_db = 1.0
 
 [node name="FireButton" type="TouchScreenButton" parent="."]
+visible = false
 shape = SubResource( 7 )
 action = "Fire"
 visibility_mode = 1

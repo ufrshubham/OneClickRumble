@@ -121,4 +121,5 @@ func _fire():
 		add_child(additional_missile)
 
 func _on_FireTimer_timeout():
-	_fire()
+	if Input.is_action_pressed("Fire"):
+		_fire()
