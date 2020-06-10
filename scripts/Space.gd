@@ -3,6 +3,7 @@ extends Node2D
 var missile = preload("res://scenes/NormalMissile.tscn")
 var health_up = preload("res://scenes/Health.tscn")
 onready var window_dim = get_viewport_rect().size
+var can_fire = false
 
 func _ready():
 	# This will ensure that player gets placed at the center of screen.
@@ -19,6 +20,9 @@ func _process(_delta):
 		_fire()
 	elif Input.is_action_pressed("Fire"):
 		get_node("Player").push(GlobalData.player_speed)
+
+		if get_node("FireTimer").is_stopped():
+			get_node("FireTimer").start()
 	
 	if GlobalData.player_lives <= 0:
 		get_tree().change_scene("res://scenes/GameOver.tscn")
@@ -29,11 +33,11 @@ func _process(_delta):
 		GlobalData.player_level = 1
 	if  GlobalData.player_score > 50:
 		GlobalData.allow_power_up = true
-	if GlobalData.player_score > 1500:
+	if GlobalData.player_score > 2000:
 		get_node("EnemySpawnTimer").set_wait_time(0.2)
-	elif GlobalData.player_score > 1000:
+	elif GlobalData.player_score > 1500:
 		get_node("EnemySpawnTimer").set_wait_time(0.4)
-	elif GlobalData.player_score > 500:
+	elif GlobalData.player_score > 300:
 		get_node("EnemySpawnTimer").set_wait_time(0.6)
 
 func _generate_missile():
@@ -50,7 +54,7 @@ func _generate_enemy_at_random_location():
 	position.y = randi() % int(window_dim.y)
 	
 	# Makes sure that enemy does not spawn too close to player.
-	while position.distance_to(get_node("Player").get_position()) < 80:
+	while position.distance_to(get_node("Player").get_position()) < 150:
 		position.x = randi() % int(window_dim.x)
 		position.y = randi() % int(window_dim.y)
 		
@@ -115,3 +119,6 @@ func _fire():
 		additional_missile.set_rotation_degrees(additional_missile.get_rotation_degrees() - 180)
 		additional_missile.set_z_index(-1)
 		add_child(additional_missile)
+
+func _on_FireTimer_timeout():
+	_fire()

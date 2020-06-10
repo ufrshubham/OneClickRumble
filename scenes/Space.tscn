@@ -190,6 +190,11 @@ visibility_mode = 1
 stream = ExtResource( 9 )
 volume_db = -18.0
 autoplay = true
+
+[node name="FireTimer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
 [connection signal="timeout" from="EnemySpawnTimer" to="." method="_on_EnemySpawnTimer_timeout"]
 [connection signal="body_entered" from="Boundaries" to="." method="_on_Boundaries_body_entered"]
 [connection signal="timeout" from="PowerTimer" to="." method="_on_PowerTimer_timeout"]
+[connection signal="timeout" from="FireTimer" to="." method="_on_FireTimer_timeout"]
