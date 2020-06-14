@@ -25,6 +25,7 @@ func _process(_delta):
 			get_node("FireTimer").start()
 	
 	if GlobalData.player_lives <= 0:
+# warning-ignore:return_value_discarded
 		get_tree().change_scene("res://scenes/GameOver.tscn")
 
 	if GlobalData.player_score > 500:

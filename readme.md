@@ -42,6 +42,8 @@ https://freesound.org/people/alphatrooper18/sounds/362422/
 - Party On!! Var_1 - by void1gaming
 https://void1gaming.itch.io/
 
+- Explosion animation - by Kenney www.kenney.nl
+
 ---
 
 Made using [Godot Engine](https://godotengine.org/)

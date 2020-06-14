@@ -33,11 +33,23 @@ func _on_Area2D_body_entered(body):
 		_handle_player_collision(body)
 	elif body.is_in_group("Projectiles"):
 		_on_projectile_collision(body)
+		_explode()
 		body.queue_free()
-		queue_free()
 	get_tree().get_current_scene().get_node("ExplosionPlayer").play()
 
 func _handle_player_collision(player):
 	GlobalData.reduce_player_life()
 	player.push(-800)
+	queue_free()
+
+func _explode():
+	get_node("CollisionShape2D").call_deferred("set_disabled", true)
+	get_node("Area2D/CollisionShape2D").call_deferred("set_disabled", true)
+	get_node("Sprite").set_visible(false)
+	
+	get_node("AnimatedSprite").set_visible(true)
+	get_node("AnimatedSprite").playing = true
+	get_node("AnimatedSprite").play("default")
+
+func _on_AnimatedSprite_animation_finished():
 	queue_free()

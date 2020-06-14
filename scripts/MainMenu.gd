@@ -17,7 +17,9 @@ func _on_ExitButton_button_up():
 	get_tree().quit()
 
 func _on_Details_button_up():
+# warning-ignore:return_value_discarded
 	get_tree().change_scene("res://scenes/DetailsMenu.tscn")
 
 func _on_Credits_button_up():
+# warning-ignore:return_value_discarded
 	get_tree().change_scene("res://scenes/Credits.tscn")
